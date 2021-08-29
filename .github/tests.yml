@@ -1,0 +1,33 @@
+name: Tests
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install gtest manually
+      run: |
+          sudo apt-get install cppcheck
+          git clone https://github.com/google/googletest 
+          cd googletest && mkdir build && cd build 
+          cmake ../ 
+          make
+    - uses: actions/checkout@v1
+    - name: run solution unit tests
+      run: | 
+          git clone https://github.com/google/googletest 
+          cd googletest && mkdir build && cd build 
+          cmake ../ 
+          make 
+          cd ../../
+          sudo apt-get install -y lcov
+          sudo apt-get install -y doxygen
+          sudo apt-get install -y clang-tidy
+          mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Debug ../ 
+          make 
+          LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libasan.so.5.0.0 ctest
+    
