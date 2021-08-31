@@ -16,31 +16,23 @@
  *   along with Feller. If not, see <http://www.gnu.org/licenses/>.
  *
  ****/
-#ifndef INCLUDED_FELLER_ANY_TYPE
-#define INCLUDED_FELLER_ANY_TYPE
 
-#include "Feller_Feller.hpp"
+#ifndef INCLUDED_FELLER_LOG_NOTHING
+#define INCLUDED_FELLER_LOG_NOTHING
+
+#include "Feller_StaticLoggingPolicy.hpp"
+#include "Feller_LoggingMode.hpp"
 
 namespace Feller
 {
 /**
-   \brief The purpose of this component is to provide a placeholder type
-for template expansions. In particular, this class should be used to
-consume arbitrary input.
-**/
-/**
-   AnyType. This is a simple class placeholder. This class
-   simply accepts any number of arguments and does nothing with them.
-   This is primarily defined so that we may use it when declaring useful
-   policy classes later on.
-**/
-struct AnyType
-{
-  /**
-     AnyType. This is the default constructor for this class. This constructor
-     accepts any number of parameters and does nothing with them.
-  **/
-  constexpr AnyType(...) {}
-};
+   LogNothing. This class provides a policy class for the \ref Logger class.
+   As the name suggests, this class recommends that the logger logs nothing: in other words,
+   the logger collects no data.
+   Since this class statically makes this recommendation, the methods that it provides essentially
+ do nothing.
+ **/
+using LogNothing = StaticLoggingPolicy<Feller::LoggingMode::NOTHING>;
 }  // namespace Feller
+
 #endif

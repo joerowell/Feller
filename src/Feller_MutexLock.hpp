@@ -62,7 +62,7 @@ public:
   using LockType = std::lock_guard<std::mutex>;
 
   /**
-     getLock. This class returns a reference
+     getLock. This method returns a reference
      to the mutex associated with this Lock. This function cannot
      be const, since the mutex may be modified externally. This function
      does not throw. This function is well-defined for all well-formed locks.
@@ -70,10 +70,23 @@ public:
      \return the mutex contained in this Lock.
   **/
   inline std::mutex &getLock() noexcept;
+
+  /**
+     getWorkingLock. This method returns `this` object's lock wrapped
+     in a ``LockType``. This is equivalent to allowing an external caller
+     to take control of the resource: this may be useful in some scenarios where
+     the caller requires more fine-grained control.
+     \return this object's mutex wrapped in a LockType.
+  **/
+  inline LockType getWorkingLock() noexcept;
 };
 
 /// INLINE FUNCTIONS
 inline std::mutex &MutexLock::getLock() noexcept { return this->lock; }
+inline MutexLock::LockType MutexLock::getWorkingLock() noexcept
+{
+  return MutexLock::LockType(this->lock);
+}
 
 }  // namespace Feller
 #endif

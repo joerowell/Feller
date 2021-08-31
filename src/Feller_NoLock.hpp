@@ -59,9 +59,19 @@ public:
      @return 0.
   **/
   inline constexpr unsigned char getLock() const noexcept;
+  /**
+     getWorkingLock. This method returns `this` object's lock wrapped
+     in a ``LockType``. Since this class has no locking mechanism,
+     this method simply returns an \ref AnyType.
+     \return this object's mutex wrapped in a LockType.
+  **/
+  inline constexpr LockType getWorkingLock() const noexcept;
 };
 // INLINE FUNCTIONS
 inline constexpr unsigned char NoLock::getLock() const noexcept { return 0; }
-
+inline constexpr NoLock::LockType NoLock::getWorkingLock() const noexcept
+{
+  return Feller::AnyType(0);
+}
 }  // namespace Feller
 #endif

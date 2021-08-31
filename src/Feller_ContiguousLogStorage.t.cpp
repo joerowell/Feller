@@ -16,6 +16,7 @@
  *   along with Feller. If not, see <http://www.gnu.org/licenses/>.
  *
  ****/
+
 #include "Feller_ContiguousLogStorage.hpp"
 #include "gtest/gtest.h"
 

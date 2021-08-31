@@ -16,32 +16,5 @@
  *   along with Feller. If not, see <http://www.gnu.org/licenses/>.
  *
  ****/
-#include "Feller_MutexLock.hpp"
-#include "gtest/gtest.h"
 
-TEST(Lock, testInit)
-{
-  Feller::MutexLock l{};
-  // Note: any failure here may be explainable by the behaviour of
-  // std::mutex::try_lock, since the function may fail spuriously.
-  EXPECT_EQ(l.getLock().try_lock(), true);
-}
-
-TEST(Lock, getLock)
-{
-  Feller::MutexLock l{};
-  auto &lock1 = l.getLock();
-  auto &lock2 = l.getLock();
-  ASSERT_EQ(&lock1, &lock2);
-}
-
-TEST(Lock, getWorkingLock)
-{
-  // This just checks that getWorkingLock does, in fact,
-  // lock the MutexLock.
-  Feller::MutexLock l{};
-  auto curr_lock = l.getWorkingLock();
-  auto &lock     = l.getLock();
-  // Already locked, so this should fail.
-  EXPECT_EQ(lock.try_lock(), false);
-}
+#include "Feller_LoggingMode.hpp"

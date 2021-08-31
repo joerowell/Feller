@@ -18,7 +18,7 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
   enable_testing()
   include_directories(SYSTEM ${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
   
-  add_library(FellerDebug
+  add_library(FellerDebug SHARED
     src/Feller_TestData.cpp
     src/Feller_Data.cpp
     src/Feller_Util.cpp
@@ -26,6 +26,10 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
     src/Feller_MutexLock.cpp
     src/Feller_NoLock.cpp
     src/Feller_Logger.cpp
+    src/Feller_LoggingMode.cpp
+    src/Feller_StaticLoggingPolicy.cpp
+    src/Feller_LogEverything.cpp
+    src/Feller_LogNothing.cpp
     src/Feller_ContiguousLogStorage.cpp)
   
   target_link_libraries(FellerDebug gcov asan ubsan)
@@ -38,6 +42,8 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
   add_executable(testNoLock src/Feller_NoLock.t.cpp)
   add_executable(testContiguousLogStorage src/Feller_ContiguousLogStorage.t.cpp)
   add_executable(testLogger src/Feller_Logger.t.cpp)
+  add_executable(testStaticLoggingPolicy src/Feller_StaticLoggingPolicy.t.cpp)
+  add_executable(testConditionalLoggingPolicy src/Feller_ConditionalLoggingPolicy.t.cpp)
   
   ### Link the target here.
   target_link_libraries(testTestData FellerDebug gtest gtest_main gcov asan ubsan)
@@ -46,6 +52,8 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
   target_link_libraries(testNoLock FellerDebug gtest gtest_main gcov asan ubsan)
   target_link_libraries(testLogger FellerDebug gtest gtest_main gcov asan ubsan)
   target_link_libraries(testContiguousLogStorage FellerDebug gtest gtest_main gcov asan ubsan)
+  target_link_libraries(testStaticLoggingPolicy FellerDebug gtest gtest_main gcov asan ubsan)
+  target_link_libraries(testConditionalLoggingPolicy FellerDebug gtest gtest_main gcov asan ubsan)
   
   # Add here if you want ctest to pick up these tests.
   # There's no reason not to have all tests here, as it makes
@@ -56,6 +64,8 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
   add_test(NoLock testNoLock)
   add_test(Logger testLogger)
   add_test(ContiguousLogStorage testContiguousLogStorage)
+  add_test(StaticLoggingPolicy testStaticLoggingPolicy)
+  add_test(ConditionalLoggingPolicy testConditionalLoggingPolicy)
 endif()
 
 ##################################
@@ -94,7 +104,7 @@ if (CMAKE_BUILD_TYPE MATCHES Release)
   add_definitions("-Ofast -march=native -std=c++17 -march=native")
 
   # Generate the output library
-  add_library(Feller
+  add_library(Feller SHARED
     src/Feller_TestData.cpp
     src/Feller_Data.cpp
     src/Feller_Util.cpp

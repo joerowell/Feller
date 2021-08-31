@@ -30,6 +30,11 @@ namespace Feller
 {
 
 /**
+   \brief This enum describes the different modes the logger can be in.
+**/
+enum class LoggingMode;
+
+/**
  \brief The purpose of this component is to provide a placeholder type
  for template expansions. In particular, this class should be used to
  consume arbitrary input.
@@ -88,8 +93,18 @@ struct NoLock;
   entry facility for the Feller logging package. Note that this component
   primarily combines other, smaller classes to create a cohesive whole.
 **/
-template <typename LogType, template <typename> class StoragePolicy, typename LockPolicy>
+template <typename LogType, template <typename> class StoragePolicy, typename LockPolicy,
+          typename LoggingPolicy>
 class Logger;
+/**
+     \brief The purpose of this component is to allow setting the logging mode statically.
+**/
+template <Feller::LoggingMode logging> class StaticLoggingPolicy;
+/**
+    \brief The purpose of this component is to allow setting the logging mode at runtime.
+**/
+class ConditionalLoggingPolicy;
+
 /**
  \brief The purpose of this namespace is to contain any utility functions that
 are associated with the Feller project. Note that this component should not depend
