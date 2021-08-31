@@ -35,14 +35,15 @@ any other similar operations. Thus, this logger should only be used in a
 single-threaded context.
 **/
 using SingleThreadedEventLogger =
-    Feller::Logger<Feller::EventLog, Feller::ContiguousLogStorage, Feller::NoLock>;
+    Feller::Logger<Feller::EventLog, Feller::ContiguousLogStorage, Feller::NoLock, 
+    Feller::ConditionalLoggingPolicy>;
 /**
    MultiThreadedEventLogger. This declaration instantiates a contiguously stored
 event logger with locking based on a mutex. This logger locks the logs using a
 std::mutex: this only allows a single thread to write to the logger at once.
 **/
 using MultiThreadedEventLogger =
-    Feller::Logger<Feller::EventLog, Feller::ContiguousLogStorage, Feller::MutexLock>;
-};  // namespace Feller
+    Feller::Logger<Feller::EventLog, Feller::ContiguousLogStorage, Feller::MutexLock, Feller::ConditionalLoggingPolicy>;
+}  // namespace Feller
 
 #endif
