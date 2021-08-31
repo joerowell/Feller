@@ -82,8 +82,8 @@ Thus, if you need a small logging library that suits these criteria, then Feller
 
 ## Project layout
 Feller has the following layout:
-	- src. src contains all of the code for this project. Everything is placed inside the 
-	  Feller namespace.
+
+- src. src contains all of the code for this project. Everything is placed inside the Feller namespace.
 
 ## How to build
 
