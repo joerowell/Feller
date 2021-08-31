@@ -64,6 +64,6 @@ struct TestData : public Data
 
 // This class should be exactly the same size as a pointer
 // to a vtable, since we expect there to be nothing else in this class.
-static_assert(sizeof(TestData) == sizeof(int *));
+static_assert(sizeof(TestData) == sizeof(int *), "Error: TestData should be an empty class!");
 }  // namespace Feller
 #endif
