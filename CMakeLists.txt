@@ -35,10 +35,10 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
   
   # Clang doesn't seem to work well with GCOV at the moment.
   if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang") 
-    target_compile_options(FellerDebug PRIVATE -g3 -ggdb -std=c++17 -fsanitize=address,undefined -Wall -Wextra -Werror -Wpedantic -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wsign-conversion -Wmisleading-indentation -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wcast-qual -Wsign-promo -Wdisabled-optimization)
+    target_compile_options(FellerDebug PRIVATE -g3 -ggdb -std=c++17  -fsanitize=address,undefined -Wall -Wextra -Werror -Wpedantic -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wsign-conversion -Wmisleading-indentation -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wcast-qual -Wsign-promo -Wdisabled-optimization)
     set(gcov_name "")
   elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    target_compile_options(FellerDebug PRIVATE -g3 -ggdb -std=c++17 -fsanitize=address,undefined -Wall -Wextra -Werror -Wpedantic -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wsign-conversion -Wmisleading-indentation -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wcast-qual -Wsign-promo -Wdisabled-optimization -fprofile-arcs -ftest-coverage)
+    target_compile_options(FellerDebug PRIVATE -g3 -ggdb -std=c++17  -fsanitize=address,undefined -Wall -Wextra -Werror -Wpedantic -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wsign-conversion -Wmisleading-indentation -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wcast-qual -Wsign-promo -Wdisabled-optimization -fprofile-arcs -ftest-coverage)
     set(gcov_name "gcov")
   endif()
   
@@ -53,7 +53,16 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
   add_executable(testStaticLoggingPolicy src/Feller_StaticLoggingPolicy.t.cpp)
   add_executable(testConditionalLoggingPolicy src/Feller_ConditionalLoggingPolicy.t.cpp)
   
-  ### Link the target here.
+  ### Force position independent code
+  set_target_properties(testTestData PROPERTIES COMPILE_FLAGS "-std=c++17")
+  set_target_properties(testLog PROPERTIES COMPILE_FLAGS "-std=c++17")
+  set_target_properties(testLock PROPERTIES COMPILE_FLAGS "-std=c++17 ")
+  set_target_properties(testNoLock PROPERTIES COMPILE_FLAGS "-std=c++17")
+  set_target_properties(testLogger PROPERTIES COMPILE_FLAGS "-std=c++17")
+  set_target_properties(testContiguousLogStorage PROPERTIES COMPILE_FLAGS "-std=c++17")
+  set_target_properties(testStaticLoggingPolicy PROPERTIES COMPILE_FLAGS "-std=c++17")
+  set_target_properties(testConditionalLoggingPolicy PROPERTIES COMPILE_FLAGS "-std=c++17")
+  ### Link the target here
   target_link_libraries(testTestData FellerDebug gtest gtest_main ${gcov_name} asan ubsan)
   target_link_libraries(testLog FellerDebug gtest gtest_main ${gcov_name} asan ubsan)
   target_link_libraries(testLock FellerDebug gtest gtest_main ${gcov_name} asan ubsan)
@@ -109,7 +118,7 @@ if (CMAKE_BUILD_TYPE MATCHES Release)
 
   # These are compiler flags - these should not be used
   # to give you a view of what the final code will look like: these are just for testing.
-  add_definitions("-Ofast -march=native -std=c++17 -march=native")
+  add_definitions("-Ofast -march=native -std=c++17 -march=native -fPIE -fPIC")
 
   # Generate the output library
   add_library(Feller SHARED
