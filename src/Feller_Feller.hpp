@@ -16,9 +16,8 @@
  *   along with Feller. If not, see <http://www.gnu.org/licenses/>.
  *
  ****/
-#ifndef INCLUDED_TREE
-#define INCLUDED_TREE
-
+#ifndef INCLUDED_FELLER
+#define INCLUDED_FELLER
 /**
    \brief
    Feller. This is the main namespace for the Feller library.
