@@ -1,4 +1,4 @@
-name: GCC
+name: Tests
 on:
   push:
     branches: [ main ]
@@ -17,7 +17,7 @@ jobs:
           cmake ../ 
           make
     - uses: actions/checkout@v1
-    - name: run unit tests with GCC
+    - name: run solution unit tests
       run: | 
           git clone https://github.com/google/googletest 
           cd googletest && mkdir build && cd build 
@@ -30,3 +30,4 @@ jobs:
           mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Debug ../ 
           make 
           LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libasan.so.5.0.0 ctest
+    
