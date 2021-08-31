@@ -70,8 +70,8 @@ inline constexpr bool
 StaticLoggingPolicy<logging>::shouldLog(const Feller::LoggingMode mode) noexcept
 {
   return (logging != Feller::LoggingMode::NOTHING) &
-    (static_cast<std::underlying_type<Feller::LoggingMode>::type>(mode) <=
-     static_cast<std::underlying_type<Feller::LoggingMode>::type>(logging));
+         (static_cast<std::underlying_type<Feller::LoggingMode>::type>(mode) <=
+          static_cast<std::underlying_type<Feller::LoggingMode>::type>(logging));
 }
 
 template <Feller::LoggingMode logging>

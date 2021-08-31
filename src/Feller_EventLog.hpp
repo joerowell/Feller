@@ -196,13 +196,17 @@ public:
      \param other: the log that is to be copied.
      \return a reference to ``this`` object.
 **/
-  EventLog &operator=(const EventLog &other) {
-    this->m_name = other.m_name;
-    this->m_time = other.m_time;
+  EventLog &operator=(const EventLog &other)
+  {
+    this->m_name       = other.m_name;
+    this->m_time       = other.m_time;
     this->m_parameters = other.m_parameters;
-    if(other.m_aux) {
+    if (other.m_aux)
+    {
       this->m_aux = other.m_aux->copy();
-    } else {
+    }
+    else
+    {
       this->m_aux = nullptr;
     }
     return *this;
