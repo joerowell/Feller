@@ -45,7 +45,7 @@ struct TestData : public Data
      no obvious differences between different instantiations
      of this struct.
   **/
-  bool operator==(const Data &) const noexcept;
+  bool operator==(const Data &) const noexcept override;
 
   /**
      to_string. This method simply returns "None", since there is no data

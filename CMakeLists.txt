@@ -31,10 +31,18 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
     src/Feller_LogEverything.cpp
     src/Feller_LogNothing.cpp
     src/Feller_ContiguousLogStorage.cpp)
-  
-  target_link_libraries(FellerDebug gcov asan ubsan)
-  target_compile_options(FellerDebug PRIVATE -g3 -ggdb -std=c++17 -fsanitize=address,undefined -Wall -Wextra -Werror -Wpedantic -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wsign-conversion -Wmisleading-indentation -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wcast-qual -Wsign-promo -Wdisabled-optimization -fprofile-arcs -ftest-coverage)
 
+  
+  # Clang doesn't seem to work well with GCOV at the moment.
+  if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang") 
+    target_compile_options(FellerDebug PRIVATE -g3 -ggdb -std=c++17 -fsanitize=address,undefined -Wall -Wextra -Werror -Wpedantic -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wsign-conversion -Wmisleading-indentation -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wcast-qual -Wsign-promo -Wdisabled-optimization)
+    set(gcov_name "")
+  elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    target_compile_options(FellerDebug PRIVATE -g3 -ggdb -std=c++17 -fsanitize=address,undefined -Wall -Wextra -Werror -Wpedantic -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wsign-conversion -Wmisleading-indentation -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wcast-qual -Wsign-promo -Wdisabled-optimization -fprofile-arcs -ftest-coverage)
+    set(gcov_name "gcov")
+  endif()
+  
+  target_link_libraries(FellerDebug ${gcov_name} asan ubsan)
   
   add_executable(testTestData src/Feller_TestData.t.cpp)
   add_executable(testLog src/Feller_EventLog.t.cpp)
@@ -46,14 +54,14 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
   add_executable(testConditionalLoggingPolicy src/Feller_ConditionalLoggingPolicy.t.cpp)
   
   ### Link the target here.
-  target_link_libraries(testTestData FellerDebug gtest gtest_main gcov asan ubsan)
-  target_link_libraries(testLog FellerDebug gtest gtest_main gcov asan ubsan)
-  target_link_libraries(testLock FellerDebug gtest gtest_main gcov asan ubsan)
-  target_link_libraries(testNoLock FellerDebug gtest gtest_main gcov asan ubsan)
-  target_link_libraries(testLogger FellerDebug gtest gtest_main gcov asan ubsan)
-  target_link_libraries(testContiguousLogStorage FellerDebug gtest gtest_main gcov asan ubsan)
-  target_link_libraries(testStaticLoggingPolicy FellerDebug gtest gtest_main gcov asan ubsan)
-  target_link_libraries(testConditionalLoggingPolicy FellerDebug gtest gtest_main gcov asan ubsan)
+  target_link_libraries(testTestData FellerDebug gtest gtest_main ${gcov_name} asan ubsan)
+  target_link_libraries(testLog FellerDebug gtest gtest_main ${gcov_name} asan ubsan)
+  target_link_libraries(testLock FellerDebug gtest gtest_main ${gcov_name} asan ubsan)
+  target_link_libraries(testNoLock FellerDebug gtest gtest_main ${gcov_name} asan ubsan)
+  target_link_libraries(testLogger FellerDebug gtest gtest_main ${gcov_name} asan ubsan)
+  target_link_libraries(testContiguousLogStorage FellerDebug gtest gtest_main ${gcov_name} asan ubsan)
+  target_link_libraries(testStaticLoggingPolicy FellerDebug gtest gtest_main ${gcov_name} asan ubsan)
+  target_link_libraries(testConditionalLoggingPolicy FellerDebug gtest gtest_main ${gcov_name} asan ubsan)
   
   # Add here if you want ctest to pick up these tests.
   # There's no reason not to have all tests here, as it makes

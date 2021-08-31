@@ -78,7 +78,7 @@ class EventLog;
  * represents a Lock. This policy class should be used for ensuring that the
  * underlying \ref Logger is thread safe.
  **/
-struct MutexLock;
+class MutexLock;
 
 /**
  \brief The purpose of this component is to provide a policy class that does
@@ -86,7 +86,7 @@ struct MutexLock;
  enable concurrent operations to occur on a \ref Logger without any guarantees
 of thread safety.
 **/
-struct NoLock;
+class NoLock;
 
 /** \brief The purpose of this component is to provide a generic logging
   facility for your application. This component can be viewed as the primary
