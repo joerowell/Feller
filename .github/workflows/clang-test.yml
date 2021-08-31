@@ -30,4 +30,4 @@ jobs:
           sudo apt-get install -y lib32asan5
           mkdir build && cd build && CXX=clang++ cmake -DCMAKE_BUILD_TYPE=Debug ../ 
           make 
-          LD_PRELOAD=/usr/lib/x86_64-linux-gnu/lib32asan5.so.5.0.0 ctest
+          LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libasan.so.5.0.0 ctest --rerun-failed --output-on-failure
