@@ -1,21 +1,21 @@
 /***\
-*
-*   Copyright (C) Joe Rowell
-*
-*   This file is part of Feller. Feller is free software:
-*   you can redistribute it and/or modify it under the terms of the
-*   GNU General Public License as published by the Free Software Foundation,
-*   either version 2 of the License, or (at your option) any later version.
-*
-*   Feller is distributed in the hope that it will be useful,
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-*   GNU General Public License for more details.
-*
-*   You should have received a copy of the GNU General Public License
-*   along with Feller. If not, see <http://www.gnu.org/licenses/>.
-*
-****/
+ *
+ *   Copyright (C) Joe Rowell
+ *
+ *   This file is part of Feller. Feller is free software:
+ *   you can redistribute it and/or modify it under the terms of the
+ *   GNU General Public License as published by the Free Software Foundation,
+ *   either version 2 of the License, or (at your option) any later version.
+ *
+ *   Feller is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with Feller. If not, see <http://www.gnu.org/licenses/>.
+ *
+ ****/
 #ifndef INCLUDED_FELLER_EVENT_LOG
 #define INCLUDED_FELLER_EVENT_LOG
 
@@ -190,11 +190,27 @@ public:
   EventLog() = default;
 
   /**
-     operator=. This implements the copy assignment operator. Here we simply
-  allow the compiler to automatically generate the right operator for us.
+     operator=. This implements the copy assignment operator. Here we follow the rule of three
+     and assume that we need to do this for the compiler.
+     This is essentially the same as just default constructing the object.
      \param other: the log that is to be copied.
-  **/
-  EventLog &operator=(const EventLog &other) = default;
+     \return a reference to ``this`` object.
+**/
+  EventLog &operator=(const EventLog &other)
+  {
+    this->m_name       = other.m_name;
+    this->m_time       = other.m_time;
+    this->m_parameters = other.m_parameters;
+    if (other.m_aux)
+    {
+      this->m_aux = other.m_aux->copy();
+    }
+    else
+    {
+      this->m_aux = nullptr;
+    }
+    return *this;
+  }
 
   /**
      EventLog(const EventLog& other). This is a copy constructor for another

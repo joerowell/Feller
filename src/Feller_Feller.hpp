@@ -1,24 +1,23 @@
 /***\
-*
-*   Copyright (C) Joe Rowell
-*
-*   This file is part of Feller. Feller is free software:
-*   you can redistribute it and/or modify it under the terms of the
-*   GNU General Public License as published by the Free Software Foundation,
-*   either version 2 of the License, or (at your option) any later version.
-*
-*   Feller is distributed in the hope that it will be useful,
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-*   GNU General Public License for more details.
-*
-*   You should have received a copy of the GNU General Public License
-*   along with Feller. If not, see <http://www.gnu.org/licenses/>.
-*
-****/
-#ifndef INCLUDED_TREE
-#define INCLUDED_TREE
-
+ *
+ *   Copyright (C) Joe Rowell
+ *
+ *   This file is part of Feller. Feller is free software:
+ *   you can redistribute it and/or modify it under the terms of the
+ *   GNU General Public License as published by the Free Software Foundation,
+ *   either version 2 of the License, or (at your option) any later version.
+ *
+ *   Feller is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with Feller. If not, see <http://www.gnu.org/licenses/>.
+ *
+ ****/
+#ifndef INCLUDED_FELLER
+#define INCLUDED_FELLER
 /**
    \brief
    Feller. This is the main namespace for the Feller library.
@@ -28,6 +27,11 @@ inside this project. For more information, see the top-level readme.
 
 namespace Feller
 {
+
+/**
+   \brief This enum describes the different modes the logger can be in.
+**/
+enum class LoggingMode;
 
 /**
  \brief The purpose of this component is to provide a placeholder type
@@ -42,7 +46,7 @@ struct AnyType;
 application would benefit in some sense from a contiguous representation of your
 logs.
 **/
-template <typename LogType> class ContiguousLogStorage;
+template <typename LogType, typename KeyType> class ContiguousLogStorage;
 
 /**
  \brief The purpose of this component is to allow you to extend the amount of
@@ -73,7 +77,7 @@ class EventLog;
  * represents a Lock. This policy class should be used for ensuring that the
  * underlying \ref Logger is thread safe.
  **/
-struct MutexLock;
+class MutexLock;
 
 /**
  \brief The purpose of this component is to provide a policy class that does
@@ -81,15 +85,25 @@ struct MutexLock;
  enable concurrent operations to occur on a \ref Logger without any guarantees
 of thread safety.
 **/
-struct NoLock;
+class NoLock;
 
 /** \brief The purpose of this component is to provide a generic logging
   facility for your application. This component can be viewed as the primary
   entry facility for the Feller logging package. Note that this component
   primarily combines other, smaller classes to create a cohesive whole.
 **/
-template <typename LogType, template <typename> class StoragePolicy, typename LockPolicy>
+template <typename LogType, typename KeyType, template <typename, typename> class StoragePolicy,
+          typename LockPolicy, typename LoggingPolicy>
 class Logger;
+/**
+     \brief The purpose of this component is to allow setting the logging mode statically.
+**/
+template <Feller::LoggingMode logging> class StaticLoggingPolicy;
+/**
+    \brief The purpose of this component is to allow setting the logging mode at runtime.
+**/
+class ConditionalLoggingPolicy;
+
 /**
  \brief The purpose of this namespace is to contain any utility functions that
 are associated with the Feller project. Note that this component should not depend

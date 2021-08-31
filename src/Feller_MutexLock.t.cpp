@@ -1,21 +1,21 @@
 /***\
-*
-*   Copyright (C) Joe Rowell
-*
-*   This file is part of Feller. Feller is free software:
-*   you can redistribute it and/or modify it under the terms of the
-*   GNU General Public License as published by the Free Software Foundation,
-*   either version 2 of the License, or (at your option) any later version.
-*
-*   Feller is distributed in the hope that it will be useful,
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-*   GNU General Public License for more details.
-*
-*   You should have received a copy of the GNU General Public License
-*   along with Feller. If not, see <http://www.gnu.org/licenses/>.
-*
-****/
+ *
+ *   Copyright (C) Joe Rowell
+ *
+ *   This file is part of Feller. Feller is free software:
+ *   you can redistribute it and/or modify it under the terms of the
+ *   GNU General Public License as published by the Free Software Foundation,
+ *   either version 2 of the License, or (at your option) any later version.
+ *
+ *   Feller is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with Feller. If not, see <http://www.gnu.org/licenses/>.
+ *
+ ****/
 #include "Feller_MutexLock.hpp"
 #include "gtest/gtest.h"
 
@@ -33,4 +33,15 @@ TEST(Lock, getLock)
   auto &lock1 = l.getLock();
   auto &lock2 = l.getLock();
   ASSERT_EQ(&lock1, &lock2);
+}
+
+TEST(Lock, getWorkingLock)
+{
+  // This just checks that getWorkingLock does, in fact,
+  // lock the MutexLock.
+  Feller::MutexLock l{};
+  auto curr_lock = l.getWorkingLock();
+  auto &lock     = l.getLock();
+  // Already locked, so this should fail.
+  EXPECT_EQ(lock.try_lock(), false);
 }

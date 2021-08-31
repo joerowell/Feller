@@ -16,5 +16,5 @@
  *   along with Feller. If not, see <http://www.gnu.org/licenses/>.
  *
  ****/
-#include "Feller_Data.hpp"
-Feller::Data::~Data() = default;
+
+#include "Feller_LogNothing.hpp"

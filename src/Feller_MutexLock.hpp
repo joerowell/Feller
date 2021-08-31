@@ -1,21 +1,21 @@
 /***\
-*
-*   Copyright (C) Joe Rowell
-*
-*   This file is part of Feller. Feller is free software:
-*   you can redistribute it and/or modify it under the terms of the
-*   GNU General Public License as published by the Free Software Foundation,
-*   either version 2 of the License, or (at your option) any later version.
-*
-*   Feller is distributed in the hope that it will be useful,
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-*   GNU General Public License for more details.
-*
-*   You should have received a copy of the GNU General Public License
-*   along with Feller. If not, see <http://www.gnu.org/licenses/>.
-*
-****/
+ *
+ *   Copyright (C) Joe Rowell
+ *
+ *   This file is part of Feller. Feller is free software:
+ *   you can redistribute it and/or modify it under the terms of the
+ *   GNU General Public License as published by the Free Software Foundation,
+ *   either version 2 of the License, or (at your option) any later version.
+ *
+ *   Feller is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with Feller. If not, see <http://www.gnu.org/licenses/>.
+ *
+ ****/
 #ifndef INCLUDED_FELLER_MUTEX_LOCK
 #define INCLUDED_FELLER_MUTEX_LOCK
 
@@ -57,12 +57,12 @@ public:
   /**
      LockType. This defines the wrapper that should be used for the lock
   associated with this class. Given that lock is a std::mutex, then the
-  LockType is a std::lock_guard<std::mutex>.
+  LockType is a std::unique_lock<std::mutex>.
   **/
-  using LockType = std::lock_guard<std::mutex>;
+  using LockType = std::unique_lock<std::mutex>;
 
   /**
-     getLock. This class returns a reference
+     getLock. This method returns a reference
      to the mutex associated with this Lock. This function cannot
      be const, since the mutex may be modified externally. This function
      does not throw. This function is well-defined for all well-formed locks.
@@ -70,10 +70,23 @@ public:
      \return the mutex contained in this Lock.
   **/
   inline std::mutex &getLock() noexcept;
+
+  /**
+     getWorkingLock. This method returns `this` object's lock wrapped
+     in a ``LockType``. This is equivalent to allowing an external caller
+     to take control of the resource: this may be useful in some scenarios where
+     the caller requires more fine-grained control.
+     \return this object's mutex wrapped in a LockType.
+  **/
+  inline LockType getWorkingLock() noexcept;
 };
 
 /// INLINE FUNCTIONS
 inline std::mutex &MutexLock::getLock() noexcept { return this->lock; }
+inline MutexLock::LockType MutexLock::getWorkingLock() noexcept
+{
+  return MutexLock::LockType(this->lock);
+}
 
 }  // namespace Feller
 #endif

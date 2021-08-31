@@ -76,13 +76,14 @@ However, Feller has its advantages:
 - Feller is well-tested. Code is not committed to the main branch unless 95% test coverage is reached.
 - Feller is fully documented. Every method, class and namespace all sport full doxygen. 
 - Feller is compiled with clang-tidy and a lot of warnings turned on. We even set ``-Werror``!
-	
+- Feller is (somewhat) battle-tested. Feller was born out of use in another project where it is extensively used for logging. There haven't been any major use cases there that weren't covered by Feller.
+
 Thus, if you need a small logging library that suits these criteria, then Feller may be the library for you.
 
 ## Project layout
 Feller has the following layout:
-	- src. src contains all of the code for this project. Everything is placed inside the 
-	  Feller namespace.
+
+- src. src contains all of the code for this project. Everything is placed inside the Feller namespace.
 
 ## How to build
 

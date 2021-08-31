@@ -1,21 +1,21 @@
 /***\
-*
-*   Copyright (C) Joe Rowell
-*
-*   This file is part of Feller. Feller is free software:
-*   you can redistribute it and/or modify it under the terms of the
-*   GNU General Public License as published by the Free Software Foundation,
-*   either version 2 of the License, or (at your option) any later version.
-*
-*   Feller is distributed in the hope that it will be useful,
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-*   GNU General Public License for more details.
-*
-*   You should have received a copy of the GNU General Public License
-*   along with Feller. If not, see <http://www.gnu.org/licenses/>.
-*
-****/
+ *
+ *   Copyright (C) Joe Rowell
+ *
+ *   This file is part of Feller. Feller is free software:
+ *   you can redistribute it and/or modify it under the terms of the
+ *   GNU General Public License as published by the Free Software Foundation,
+ *   either version 2 of the License, or (at your option) any later version.
+ *
+ *   Feller is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with Feller. If not, see <http://www.gnu.org/licenses/>.
+ *
+ ****/
 #ifndef INCLUDED_FELLER_NO_LOCK
 #define INCLUDED_FELLER_NO_LOCK
 
@@ -59,9 +59,19 @@ public:
      @return 0.
   **/
   inline constexpr unsigned char getLock() const noexcept;
+  /**
+     getWorkingLock. This method returns `this` object's lock wrapped
+     in a ``LockType``. Since this class has no locking mechanism,
+     this method simply returns an \ref AnyType.
+     \return this object's mutex wrapped in a LockType.
+  **/
+  inline constexpr LockType getWorkingLock() const noexcept;
 };
 // INLINE FUNCTIONS
 inline constexpr unsigned char NoLock::getLock() const noexcept { return 0; }
-
+inline constexpr NoLock::LockType NoLock::getWorkingLock() const noexcept
+{
+  return Feller::AnyType(0);
+}
 }  // namespace Feller
 #endif

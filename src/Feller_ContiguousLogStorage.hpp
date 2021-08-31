@@ -1,21 +1,21 @@
 /***\
-*
-*   Copyright (C) Joe Rowell
-*
-*   This file is part of Feller. Feller is free software:
-*   you can redistribute it and/or modify it under the terms of the
-*   GNU General Public License as published by the Free Software Foundation,
-*   either version 2 of the License, or (at your option) any later version.
-*
-*   Feller is distributed in the hope that it will be useful,
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-*   GNU General Public License for more details.
-*
-*   You should have received a copy of the GNU General Public License
-*   along with Feller. If not, see <http://www.gnu.org/licenses/>.
-*
-****/
+ *
+ *   Copyright (C) Joe Rowell
+ *
+ *   This file is part of Feller. Feller is free software:
+ *   you can redistribute it and/or modify it under the terms of the
+ *   GNU General Public License as published by the Free Software Foundation,
+ *   either version 2 of the License, or (at your option) any later version.
+ *
+ *   Feller is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with Feller. If not, see <http://www.gnu.org/licenses/>.
+ *
+ ****/
 #ifndef INCLUDED_FELLER_CONTIGUOUS_LOG_STORAGE
 #define INCLUDED_FELLER_CONTIGUOUS_LOG_STORAGE
 
@@ -36,9 +36,11 @@ inherits from std::vector so that maximal functionality can exist for clients of
 this particular class.
 
  \tparam LogType: the type of log to be stored in this class.
+ \tparam KeyType: not used in this class.
 **/
 
-template <typename LogType> class ContiguousLogStorage : public std::vector<LogType>
+template <typename LogType, typename KeyType = char /*unused*/>
+class ContiguousLogStorage : public std::vector<LogType>
 {
 public:
   /**
@@ -49,8 +51,8 @@ public:
       \param st: the object to be printed.
       \return the os parameter.
    **/
-  template <typename LT>
-  inline friend std::ostream &operator<<(std::ostream &os, const ContiguousLogStorage<LT> &st);
+  template <typename LT, typename KT>
+  inline friend std::ostream &operator<<(std::ostream &os, const ContiguousLogStorage<LT, KT> &st);
   /**
      insert. This method implements a wrapper around emplace_back. In
   particular, this function copies the `log` into this object. This function is
@@ -70,8 +72,8 @@ public:
   inline void insert(LogType &&log);
 };
 /// INLINE FUNCTIONS
-template <typename LogType>
-inline std::ostream &operator<<(std::ostream &os, const ContiguousLogStorage<LogType> &st)
+template <typename LogType, typename KeyType>
+inline std::ostream &operator<<(std::ostream &os, const ContiguousLogStorage<LogType, KeyType> &st)
 {
   for (auto &v : st)
   {
@@ -80,13 +82,14 @@ inline std::ostream &operator<<(std::ostream &os, const ContiguousLogStorage<Log
   return os;
 }
 
-template <typename LogType>
-inline void Feller::ContiguousLogStorage<LogType>::insert(const LogType &log)
+template <typename LogType, typename KeyType>
+inline void Feller::ContiguousLogStorage<LogType, KeyType>::insert(const LogType &log)
 {
   this->emplace_back(log);
 }
 
-template <typename LogType> inline void Feller::ContiguousLogStorage<LogType>::insert(LogType &&log)
+template <typename LogType, typename KeyType>
+inline void Feller::ContiguousLogStorage<LogType, KeyType>::insert(LogType &&log)
 {
   this->emplace_back(std::move(log));
 }

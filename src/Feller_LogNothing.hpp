@@ -16,5 +16,23 @@
  *   along with Feller. If not, see <http://www.gnu.org/licenses/>.
  *
  ****/
-#include "Feller_Data.hpp"
-Feller::Data::~Data() = default;
+
+#ifndef INCLUDED_FELLER_LOG_NOTHING
+#define INCLUDED_FELLER_LOG_NOTHING
+
+#include "Feller_StaticLoggingPolicy.hpp"
+#include "Feller_LoggingMode.hpp"
+
+namespace Feller
+{
+/**
+   LogNothing. This class provides a policy class for the \ref Logger class.
+   As the name suggests, this class recommends that the logger logs nothing: in other words,
+   the logger collects no data.
+   Since this class statically makes this recommendation, the methods that it provides essentially
+ do nothing.
+ **/
+using LogNothing = StaticLoggingPolicy<Feller::LoggingMode::NOTHING>;
+}  // namespace Feller
+
+#endif

@@ -1,4 +1,4 @@
-name: Tests
+name: Gcc-tests
 on:
   push:
     branches: [ main ]
@@ -27,6 +27,7 @@ jobs:
           sudo apt-get install -y lcov
           sudo apt-get install -y doxygen
           sudo apt-get install -y clang-tidy
+          sudo apt-get install -y lib32asan5
           mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Debug ../ 
           make 
           LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libasan.so.5.0.0 ctest

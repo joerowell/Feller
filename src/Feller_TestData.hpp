@@ -1,21 +1,21 @@
 /***\
-*
-*   Copyright (C) Joe Rowell
-*
-*   This file is part of Feller. Feller is free software:
-*   you can redistribute it and/or modify it under the terms of the
-*   GNU General Public License as published by the Free Software Foundation,
-*   either version 2 of the License, or (at your option) any later version.
-*
-*   Feller is distributed in the hope that it will be useful,
-*   but WITHOUT ANY WARRANTY; without even the implied warranty of
-*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-*   GNU General Public License for more details.
-*
-*   You should have received a copy of the GNU General Public License
-*   along with Feller. If not, see <http://www.gnu.org/licenses/>.
-*
-****/
+ *
+ *   Copyright (C) Joe Rowell
+ *
+ *   This file is part of Feller. Feller is free software:
+ *   you can redistribute it and/or modify it under the terms of the
+ *   GNU General Public License as published by the Free Software Foundation,
+ *   either version 2 of the License, or (at your option) any later version.
+ *
+ *   Feller is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with Feller. If not, see <http://www.gnu.org/licenses/>.
+ *
+ ****/
 #ifndef INCLUDED_FELLER_TEST_DATA
 #define INCLUDED_FELLER_TEST_DATA
 
@@ -45,7 +45,7 @@ struct TestData : public Data
      no obvious differences between different instantiations
      of this struct.
   **/
-  bool operator==(const Data &) const noexcept;
+  bool operator==(const Data &) const noexcept override;
 
   /**
      to_string. This method simply returns "None", since there is no data
@@ -64,6 +64,6 @@ struct TestData : public Data
 
 // This class should be exactly the same size as a pointer
 // to a vtable, since we expect there to be nothing else in this class.
-static_assert(sizeof(TestData) == sizeof(int *));
+static_assert(sizeof(TestData) == sizeof(int *), "Error: TestData should be an empty class!");
 }  // namespace Feller
 #endif
