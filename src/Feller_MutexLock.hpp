@@ -57,9 +57,9 @@ public:
   /**
      LockType. This defines the wrapper that should be used for the lock
   associated with this class. Given that lock is a std::mutex, then the
-  LockType is a std::lock_guard<std::mutex>.
+  LockType is a std::unique_lock<std::mutex>.
   **/
-  using LockType = std::lock_guard<std::mutex>;
+  using LockType = std::unique_lock<std::mutex>;
 
   /**
      getLock. This method returns a reference
