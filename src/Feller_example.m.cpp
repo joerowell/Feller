@@ -16,13 +16,13 @@
  *   along with Feller. If not, see <http://www.gnu.org/licenses/>.
  *
  ****/
-#include "Tree.hpp"
+#include "Feller.hpp"
 #include <iostream>
 
 int main()
 {
-  Tree::SingleThreadedEventLogger logger;
-  using Log = Tree::SingleThreadedEventLogger::log_type;
+  Feller::SingleThreadedEventLogger logger;
+  using Log = Feller::SingleThreadedEventLogger::log_type;
 
   logger.insert(Log{"Entering loop"});
   const unsigned random_size = rand() % 4096;
