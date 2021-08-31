@@ -1,4 +1,4 @@
-name: Tests
+name: Gcc-tests
 on:
   push:
     branches: [ main ]
