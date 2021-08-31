@@ -16,17 +16,17 @@
  *   along with Feller. If not, see <http://www.gnu.org/licenses/>.
  *
  ****/
-#ifndef INCLUDED_TREE_DECL
-#define INCLUDED_TREE_DECL
+#ifndef INCLUDED_FELLER_DECL
+#define INCLUDED_FELLER_DECL
 
 /**
    This component contains some useful definitions that can be used
-   inside Tree.
+   inside Feller.
 **/
 
-#include "Tree_Tree.hpp"
+#include "Feller_Feller.hpp"
 
-namespace Tree
+namespace Feller
 {
 /**
    SingleThreadedEventLogger. This declaration instantiates a contiguously
@@ -35,14 +35,14 @@ any other similar operations. Thus, this logger should only be used in a
 single-threaded context.
 **/
 using SingleThreadedEventLogger =
-    Tree::Logger<Tree::EventLog, Tree::ContiguousLogStorage, Tree::NoLock>;
+    Feller::Logger<Feller::EventLog, Feller::ContiguousLogStorage, Feller::NoLock>;
 /**
    MultiThreadedEventLogger. This declaration instantiates a contiguously stored
 event logger with locking based on a mutex. This logger locks the logs using a
 std::mutex: this only allows a single thread to write to the logger at once.
 **/
 using MultiThreadedEventLogger =
-    Tree::Logger<Tree::EventLog, Tree::ContiguousLogStorage, Tree::MutexLock>;
-};  // namespace Tree
+    Feller::Logger<Feller::EventLog, Feller::ContiguousLogStorage, Feller::MutexLock>;
+};  // namespace Feller
 
 #endif
