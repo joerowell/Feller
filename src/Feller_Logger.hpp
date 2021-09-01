@@ -78,7 +78,7 @@ namespace Feller
  **/
 
 template <typename LogType, typename KeyType = char,
-          template <typename, typename> class StoragePolicy = ContiguousLogStorage,
+          template <typename...> class StoragePolicy = ContiguousLogStorage,
           typename LockPolicy = NoLock, typename LoggingPolicy = ConditionalLoggingPolicy>
 class Logger : public StoragePolicy<LogType, KeyType>, public LockPolicy, public LoggingPolicy
 {

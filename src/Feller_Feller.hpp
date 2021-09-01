@@ -92,7 +92,7 @@ class NoLock;
   entry facility for the Feller logging package. Note that this component
   primarily combines other, smaller classes to create a cohesive whole.
 **/
-template <typename LogType, typename KeyType, template <typename, typename> class StoragePolicy,
+template <typename LogType, typename KeyType, template <typename...> class StoragePolicy,
           typename LockPolicy, typename LoggingPolicy>
 class Logger;
 /**
