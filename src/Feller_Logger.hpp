@@ -156,7 +156,7 @@ public:
   inline void clear() noexcept;
 };
 
-template <typename LogType, typename KeyType, template <typename, typename> class StoragePolicy,
+template <typename LogType, typename KeyType, template <typename...> class StoragePolicy,
           typename LockPolicy, typename LoggingPolicy>
 inline void Feller::Logger<LogType, KeyType, StoragePolicy, LockPolicy, LoggingPolicy>::insert(
     LogType &&log, const Feller::LoggingMode priority)
@@ -167,7 +167,7 @@ inline void Feller::Logger<LogType, KeyType, StoragePolicy, LockPolicy, LoggingP
   StoragePolicy<LogType, KeyType>::insert(log);
 }
 
-template <typename LogType, typename KeyType, template <typename, typename> class StoragePolicy,
+template <typename LogType, typename KeyType, template <typename...> class StoragePolicy,
           typename LockPolicy, typename LoggingPolicy>
 inline void Feller::Logger<LogType, KeyType, StoragePolicy, LockPolicy, LoggingPolicy>::insert(
     const LogType &log, const Feller::LoggingMode priority)
@@ -177,7 +177,7 @@ inline void Feller::Logger<LogType, KeyType, StoragePolicy, LockPolicy, LoggingP
   auto lock = this->getWorkingLock();
   StoragePolicy<LogType, KeyType>::insert(log);
 }
-template <typename LogType, typename KeyType, template <typename, typename> class StoragePolicy,
+template <typename LogType, typename KeyType, template <typename...> class StoragePolicy,
           typename LockPolicy, typename LoggingPolicy>
 inline void
 Feller::Logger<LogType, KeyType, StoragePolicy, LockPolicy, LoggingPolicy>::clear() noexcept
