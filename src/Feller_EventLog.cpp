@@ -53,12 +53,12 @@ void Feller::EventLog::reserve(const Feller::EventLog::size_type size)
   m_parameters.reserve(size);
 }
 
-Feller::EventLog::size_type Feller::EventLog::capacity() const noexcept
+auto Feller::EventLog::capacity() const noexcept -> Feller::EventLog::size_type
 {
   return m_parameters.capacity();
 }
 
-std::string Feller::EventLog::to_string() const
+auto Feller::EventLog::to_string() const -> std::string
 {
   // Firstly we need to convert the time to a string
   // This is a remarkably involved process for some reason.

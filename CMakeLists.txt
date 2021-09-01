@@ -9,7 +9,7 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
   ## clang-tidy on system headers.
   ## This whole number of arguments are mostly telling clang-tidy to ignore any of the errors in
   ## google test.
-  set(CMAKE_CXX_CLANG_TIDY clang-tidy;-checks=*,-portability-*,-objc-*,-fuchsia-*,-abseil-*,-hicpp-*,-cppcoreguidelines-owning-memory,-llvm-include-order,-llvm-qualifed-auto,-modernize-use-trailing-return-type,-cppcoreguidelines-avoid-magic-numbers,-cppcoreguidelines-pro-bounds-array-to-pointer-decay,-readability-magic-numbers,-cppcoreguidelines-avoid-goto,-cppcoreguidelines-pro-type-vararg,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-cert-msc30-c,-cert-msc50-cpp,-hicpp-no-array-decay,-cppcoreguidelines-pro-bounds-constant-array-index,-cppcoreguidelines-macro-usage,-cppcoreguidelines-pro-type-static-cast-downcast,-hicpp-avoid-goto,-hicpp-vararg,-cert-err58-cpp;--extra-arg=-isystem;)
+  set(CMAKE_CXX_CLANG_TIDY clang-tidy;-checks=*,-portability-*,-objc-*,-fuchsia-*,-abseil-*,-hicpp-*,-cppcoreguidelines-owning-memory,-llvm-include-order,-llvm-qualifed-auto,-cppcoreguidelines-avoid-magic-numbers,-cppcoreguidelines-pro-bounds-array-to-pointer-decay,-readability-magic-numbers,-cppcoreguidelines-avoid-goto,-cppcoreguidelines-pro-type-vararg,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-cert-msc30-c,-cert-msc50-cpp,-hicpp-no-array-decay,-cppcoreguidelines-pro-bounds-constant-array-index,-cppcoreguidelines-macro-usage,-cppcoreguidelines-pro-type-static-cast-downcast,-hicpp-avoid-goto,-hicpp-vararg,-cert-err58-cpp;--extra-arg=-isystem; -fix-errors;)
 
   ################################
   # GTest

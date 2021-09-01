@@ -18,8 +18,8 @@
  ****/
 #include "Feller_Util.hpp"
 
-std::string
-Feller::Util::time_to_string(const std::chrono::time_point<std::chrono::system_clock> &time)
+auto Feller::Util::time_to_string(const std::chrono::time_point<std::chrono::system_clock> &time)
+    -> std::string
 {
   // This is a remarkably involved process for some reason.
   // The neatest way I found of doing this was found at:

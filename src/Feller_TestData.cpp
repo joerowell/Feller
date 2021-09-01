@@ -19,9 +19,9 @@
 #include "Feller_TestData.hpp"
 
 Feller::TestData::~TestData() = default;
-bool Feller::TestData::operator==(const Data & /*other*/) const noexcept { return true; }
-std::string Feller::TestData::to_string() const { return "None"; }
-std::unique_ptr<Feller::Data> Feller::TestData::copy() const
+auto Feller::TestData::operator==(const Data & /*other*/) const noexcept -> bool { return true; }
+auto Feller::TestData::to_string() const -> std::string { return "None"; }
+auto Feller::TestData::copy() const -> std::unique_ptr<Feller::Data>
 {
   return std::make_unique<Feller::TestData>();
 }
